@@ -20,6 +20,5 @@ int main(void){
             printf("x=%f y=%f u=%f\n", x, y, u);
         }
     }
-
     return 0;
 }
