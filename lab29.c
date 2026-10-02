@@ -10,9 +10,9 @@ int main(void){
                 u1 = pow(e_val, 2 * x) + log10(x);
                 u2 = sin(-(1 - fabs(x - y)/pow(x, 1/3)));
                 if (u1 < u2){
-                    u = u1;
-                } else{
                     u = u2;
+                } else{
+                    u = u1;
                 }
             } else{
                 u = pow(cos(pow(x, 2) - y), 2);
