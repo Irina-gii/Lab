@@ -1,37 +1,24 @@
 #!/bin/bash
-
-file=$1
-
-func() {
-  echo "$1;	$2;	$3;	$4" >> "$file"
-}
-
+file="Система учёта расходов.txt"
 while true
 do
-  echo "1 - добавить, 2 - показать, 0 - выход"
+  echo "1-добавить, 2-показать, 0-выход"
   choice=""
   read choice
-  
+   
   case $choice in
   1)
-    echo "Дата:"
-    read date
-    echo "Категория:"
-    read category
-    echo "Сумма:"
-    read amount
-    echo "Описание:"
-    read description
-    func "$date" "$category" "$amount" "$description"
-   ;;
-   2)
+    read -p "Дата: " date
+    read -p "Категория: " category
+    read -p "Сумма: " amount
+    read -p "Описание: " description
+    echo "${date} ${category} ${amount} ${description}" >> "$(pwd)/$file"
+  ;;
+  2)
     cat "$file"
-   ;;
-   0)
+  ;;
+  0)
     break
-   ;;
-   *)
-    echo "Неизвестная команда"
-   ;;
-   esac
+  ;;
+  esac
 done
