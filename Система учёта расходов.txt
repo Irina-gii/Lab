@@ -1,0 +1,19 @@
+19.10.2023 eда 500 варап
+#!/bin/bash
+file=$1
+ado() {
+  read -r -p "Дата" d
+  read -r -p "Категория" k
+  read -r -p "Сумма" c
+  read -r -p "Описание" o
+  echo "$d $k $c $o" >> "$file"
+}
+while true; do 
+    echo "1-добавить, 2-показать, 0-выход"
+    read -r choice
+    case $choice in
+        1) ado ;;
+        2) cat "$file" 2>/dev/null ;;
+        0) break ;;
+    esac
+done

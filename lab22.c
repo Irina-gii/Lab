@@ -7,8 +7,9 @@ int count(int a, int n){
     return 1 + count(a + 1, n);
 }
 
-int main(){
+int main(void){
     int n;
+    printf("Введите натуральное число N: ");
     scanf("%d", &n);
     if (n != 1){
         if (n < 1){

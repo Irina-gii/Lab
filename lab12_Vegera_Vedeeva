@@ -1,24 +1,18 @@
 #!/bin/bash
-file="Система учёта расходов.txt"
-while true
-do
-  echo "1-добавить, 2-показать, 0-выход"
-  choice=""
-  read choice
-   
-  case $choice in
-  1)
-    read -p "Дата: " date
-    read -p "Категория: " category
-    read -p "Сумма: " amount
-    read -p "Описание: " description
-    echo "${date} ${category} ${amount} ${description}" >> "$(pwd)/$file"
-  ;;
-  2)
-    cat "$file"
-  ;;
-  0)
-    break
-  ;;
-  esac
+file=$1
+ado() {
+  read -r -p "Дата" d
+  read -r -p "Категория" k
+  read -r -p "Сумма" c
+  read -r -p "Описание" o
+  echo "$d $k $c $o" >> "$file"
+}
+while true; do 
+    echo "1-добавить, 2-показать, 0-выход"
+    read -r choice
+    case $choice in
+        1) ado ;;
+        2) cat "$file" ;;
+        0) break ;;
+    esac
 done
