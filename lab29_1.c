@@ -128,7 +128,7 @@ int main() {
     for (int i=0; i<N; i++){
         for (int j=0; j<M; j++){
             if (i+j<M-1){ //Условие нахождения над побочной диагональю
-                if ( found=0 || Matrix[i*M+j]>max){
+                if ( found==0 || Matrix[i*M+j]>max){
                     max=Matrix[i*M+j];
                     mi=i;
                     mj=j;
