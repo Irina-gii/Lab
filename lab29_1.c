@@ -94,9 +94,9 @@ int main() {
     float *Matrix=malloc(M*N*sizeof(*Matrix));
     for (int i=0; i<N; i++) {
         for (int j=0; j<M; j++) {
-            char *element=NULL;
             float value;
             while (1) {
+                char *element=NULL;
                 printf("Введите элемент [%i][%i]: ",i,j);
                 if (scanf("%ms", &element) !=1) {
                     printf("Ошибка чтения.\n");
@@ -122,20 +122,22 @@ int main() {
         printf("\n");
     }
     // пункт 1: максимум над побочной диагональю и его местоположение
-    if (M>1){
-        float max=-999999.0; // Инициализируем заведомо маленьким числом
-        int mi=0,mj=0;
-        for (int i=0; i<N; i++){
-            for (int j=0; j<M; j++){
-                if (i+j<M-1 && j>i){ //Условие нахождения над побочной диагональю
-                    if (Matrix[i*M+j]>max){
-                        max=Matrix[i*M+j];
-                        mi=i;
-                        mj=j;
-                    }
+    int found=0;
+    float max=0;
+    int mi=0,mj=0;
+    for (int i=0; i<N; i++){
+        for (int j=0; j<M; j++){
+            if (i+j<M-1){ //Условие нахождения над побочной диагональю
+                if ( found=0 || Matrix[i*M+j]>max){
+                    max=Matrix[i*M+j];
+                    mi=i;
+                    mj=j;
+                    found=1;
                 }
             }
         }
+    }
+    if (found) {
         printf("Максимум: %f, позиция [%i][%i]\n", max, mi,mj);
     } else {
         printf("Над побочной диагональю нет элементов.\n");
