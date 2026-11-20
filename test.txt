@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+void bubble(int *a, int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (a[j] > a[j + 1]) {
+                int x = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = x;
+            }
+        }
+    }
+}
+
+void insertion(int *a, int n) {
+    for (int i = 1; i < n; i++) {
+        int x = a[i];
+        int j = i - 1;
+
+        while (j >= 0 && a[j] > x) {
+            a[j + 1] = a[j];
+            j--;
+        }
+
+        a[j + 1] = x;
+    }
+}
+
+void mergeSort(int *a, int *temp, int left, int right) {
+    if (right - left <= 1)
+        return;
+
+    int mid = (left + right) / 2;
+
+    mergeSort(a, temp, left, mid);
+    mergeSort(a, temp, mid, right);
+
+    int i = left, j = mid, k = left;
+
+    while (i < mid && j < right) {
+        if (a[i] <= a[j])
+            temp[k++] = a[i++];
+        else
+            temp[k++] = a[j++];
+    }
+
+    while (i < mid)
+        temp[k++] = a[i++];
+
+    while (j < right)
+        temp[k++] = a[j++];
+
+    for (i = left; i < right; i++)
+        a[i] = temp[i];
+}
+
+int main() {
+    srand(time(0));
+
+    int sizes[] = {10, 1000, 10000, 100000};
+
+    printf("N\tBubble sort\tInsert sort\tMerge sort\n");
+
+    for (int t = 0; t < 4; t++) {
+        int n = sizes[t];
+        int bytes = n * sizeof(int);
+
+        int *original = (int*)malloc(bytes);
+        int *a = (int*)malloc(bytes);
+        int *temp = (int*)malloc(bytes);
+
+        for (int i = 0; i < n; i++)
+            original[i] = rand();
+
+        memcpy(a, original, bytes);
+        clock_t start = clock();
+        bubble(a, n);
+        double t1 = (double)(clock() - start) / CLOCKS_PER_SEC;
+
+        memcpy(a, original, bytes);
+        start = clock();
+        insertion(a, n);
+        double t2 = (double)(clock() - start) / CLOCKS_PER_SEC;
+
+        memcpy(a, original, bytes);
+        start = clock();
+        mergeSort(a, temp, 0, n);
+        double t3 = (double)(clock() - start) / CLOCKS_PER_SEC;
+
+        printf("%d\t%f\t%f\t%f\n", n, t1, t2, t3);
+
+        free(original);
+        free(a);
+        free(temp);
+    }
+
+    return 0;
+}
